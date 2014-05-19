@@ -54,6 +54,7 @@ Game.prototype.buyUpgrade = function(type, tier) {
             this.mpcPrices[tier] = tier * 1000 + Math.floor(10 * Math.pow(1.1, this.mpcCount[tier]));
             price = this.mpcPrices[tier];
             $("span#mpcUpgradePrice" + tier).html(price);
+            updateCount("mpcUpgradeCount" + tier, this.mpcCount[tier]);
         }
     }
     else if (type == 'mps')
@@ -72,6 +73,7 @@ Game.prototype.buyUpgrade = function(type, tier) {
             price = this.mpsPrices[tier];
             
             $("span#mpsUpgradePrice" + tier).html(price);
+            updateCount("mpsUpgradeCount" + tier, this.mpsCount[tier]);
         }
     }
 };
@@ -113,6 +115,10 @@ Game.prototype.mpsUpdate = function() {
 var gameInstance = new Game();
 
 var buyUpgrades = (function(obj) { gameInstance.buyUpgrade(obj.data.type, obj.data.tier); });
+
+function updateCount(id, number) {
+    $("span#" + id).html(number);
+}
 
 //Once per Upgrade
 for (var i = 0; i < gameInstance.mpcNames.length; i++)
